@@ -16,13 +16,14 @@ class Header extends StatelessWidget {
   final Widget suffix;
   final bool showPrefix;
   final Color color;
+  final Color iconColor;
 
   final Border border;
   const Header({
     Key key,
     this.text,
     this.color,
-
+      this.iconColor,
     this.border,
     this.showPrefix = true,
     this.textStyle,
@@ -48,7 +49,7 @@ class Header extends StatelessWidget {
             ),
             child: Icon(
               Icons.arrow_back_ios_rounded,
-              color: color,
+              color: iconColor,
               size: 15,
             ),
           ),

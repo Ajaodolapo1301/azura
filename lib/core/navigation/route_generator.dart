@@ -1,14 +1,17 @@
 
 import 'package:azura_lab/feature/home/presentation/pages/all_leagues.dart';
 import 'package:azura_lab/feature/home/presentation/pages/home.dart';
+import 'package:azura_lab/feature/home/presentation/pages/teams.dart';
 import 'package:flutter/material.dart';
 
 
 
 const String initialPage = '/';
 const String leaguesPage = '/all-leagues';
+const String teamsPage = '/all-teams';
 
-class RouteRegenerator {
+
+class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
@@ -18,8 +21,14 @@ class RouteRegenerator {
         );
       case leaguesPage:
         return MaterialPageRoute(
-          builder: (_) =>  LeaguePage(leagues: args,),
+          builder: (_) =>  LeaguePage(),
         );
+
+      case teamsPage:
+        return MaterialPageRoute(
+          builder: (_) =>  TeamPage(leagues: args,),
+        );
+
       default:
         return _errorRoute();
     }

@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'package:azura_lab/feature/home/data/model/Sport_model.dart';
+import 'package:azura_lab/feature/home/data/model/Team_model.dart';
 import 'package:azura_lab/feature/home/data/model/country_model.dart';
 import 'package:azura_lab/feature/home/data/model/leagues.dart';
 
@@ -9,7 +10,7 @@ abstract class AbstractSport {
   Future <Map<String, dynamic>> getSports();
   Future <Map<String, dynamic>> getCountry();
   Future <Map<String, dynamic>> getLeaguesByCountry({sport, country});
-
+  Future <Map<String, dynamic>> getallteams({id});
 }
 
 const baseUrl = "https://www.thesportsdb.com/api/v1/json/2";
@@ -127,6 +128,44 @@ class SportApi implements AbstractSport{
 
     }
     print(result);
+    return result;
+  }
+
+  @override
+  Future<Map<String, dynamic>> getallteams({id})async {
+    Map<String, dynamic> result = {};
+    final String uri = "$baseUrl/search_all_teams.php?l=English%20Premier%20League";
+    final url = Uri.parse(uri);
+
+
+
+    print(url);
+    try {
+      var response = await http.get(url,).timeout(Duration(seconds: 30));
+      int statusCode = response.statusCode;
+      print(response.body);
+      if (statusCode == 200) {
+
+        result["error"] = false;
+        List<TeamsModel> teams = [];
+        (jsonDecode(response.body)["teams"] as List).forEach((dat){
+          teams.add(TeamsModel.fromJson(dat));
+        });
+        result["teams"] = teams;
+
+      } else if (statusCode == 500) {
+        result['error'] = true;
+        result["message"] = "Internal Server Error";
+
+      } else {
+        result['error'] = true;
+        result["message"] = jsonDecode(response.body)["message"];
+      }
+    } catch (error) {
+
+
+    }
+
     return result;
   }
 

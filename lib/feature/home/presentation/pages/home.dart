@@ -183,7 +183,7 @@ class _HomeState extends State<Home>
     var res = await sportState.getLeaguesByCountry(sport: sport, country: country);
     res.fold((l) => null, (r) {
 
-      pushNamedRoute(context, leaguesPage, args: r );
+      pushNamedRoute(context, leaguesPage, );
 
     });
 

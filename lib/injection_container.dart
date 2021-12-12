@@ -1,4 +1,5 @@
 
+import 'package:azura_lab/feature/home/domain/use_cases/get_teams_use_case.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
@@ -22,7 +23,8 @@ Future<void> init() async {
     () => SportState(
       sportUseCase: sl(),
       countryUseCase: sl(),
-        leaguesUseCase: sl()
+        leaguesUseCase: sl(),
+      teamUseCase: sl()
 
     ),
   );
@@ -31,6 +33,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetSportUseCase(sl()));
   sl.registerLazySingleton(() => GetCountryUseCase(sl()));
   sl.registerLazySingleton(() => GetLeaguesUseCase(sl()));
+  sl.registerLazySingleton(() => GetTeamUseCase(sl()));
   // Repository
   sl.registerLazySingleton<SportRepository>(
     () => SportRepositoryImpl(

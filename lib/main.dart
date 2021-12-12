@@ -28,7 +28,7 @@ Future <void> main() async{
 
               ChangeNotifierProvider(create: (_) => BaseViewModel()),
               ChangeNotifierProvider(create: (_) => SportState(sportUseCase:sl() ,
-              countryUseCase: sl(), leaguesUseCase: sl(),
+              countryUseCase: sl(), leaguesUseCase: sl(), teamUseCase: sl()
               )),
 
             ],
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
             ),
           initialRoute: '/',
 
-          onGenerateRoute: (settings) => RouteRegenerator.generateRoute(settings),
+          onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings),
         )
     );
   }
