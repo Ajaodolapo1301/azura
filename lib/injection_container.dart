@@ -9,6 +9,7 @@ import 'feature/home/data/data_source/remote_data_source.dart';
 import 'feature/home/data/repository/repository.dart';
 import 'feature/home/domain/repository/repository.dart';
 import 'feature/home/domain/use_cases/get_country_use_case.dart';
+import 'feature/home/domain/use_cases/get_leagues_use_case.dart';
 import 'feature/home/domain/use_cases/get_sport_use_case.dart';
 import 'feature/home/presentation/view_model/sport_view_model.dart';
 
@@ -20,7 +21,8 @@ Future<void> init() async {
   sl.registerFactory(
     () => SportState(
       sportUseCase: sl(),
-      countryUseCase: sl()
+      countryUseCase: sl(),
+        leaguesUseCase: sl()
 
     ),
   );
@@ -28,7 +30,7 @@ Future<void> init() async {
   // Use cases
   sl.registerLazySingleton(() => GetSportUseCase(sl()));
   sl.registerLazySingleton(() => GetCountryUseCase(sl()));
-
+  sl.registerLazySingleton(() => GetLeaguesUseCase(sl()));
   // Repository
   sl.registerLazySingleton<SportRepository>(
     () => SportRepositoryImpl(

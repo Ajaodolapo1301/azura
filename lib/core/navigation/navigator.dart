@@ -21,6 +21,12 @@ Future<T> pushReplacementToWithRoute<T>(BuildContext context, Route route) async
   return await Navigator.pushReplacement(context, route);
 }
 
+
+Future<T> pushNamedRoute<T>(BuildContext context, String route, {Object args}) async {
+  return await Navigator.pushNamed(context, route, arguments:args );
+}
+
+
 Future<T> pushTo<T>(BuildContext context, Widget page,
     [PushStyle pushStyle]) async {
   return await Navigator.push<T>(

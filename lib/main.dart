@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 import 'core/GlobalState/baseState.dart';
+import 'core/navigation/route_generator.dart';
 import 'feature/home/presentation/pages/home.dart';
 import 'feature/home/presentation/view_model/sport_view_model.dart';
 import 'injection_container.dart' as di;
@@ -21,13 +22,13 @@ Future <void> main() async{
     runApp(
 
         DevicePreview(
-          enabled: true,
+          enabled: false,
           builder: (context) =>   MultiProvider(
             providers: [
 
               ChangeNotifierProvider(create: (_) => BaseViewModel()),
               ChangeNotifierProvider(create: (_) => SportState(sportUseCase:sl() ,
-
+              countryUseCase: sl(), leaguesUseCase: sl(),
               )),
 
             ],
@@ -60,7 +61,9 @@ class MyApp extends StatelessWidget {
               fontFamily: 'SofiaPro',
 
             ),
-            home:Home()
+          initialRoute: '/',
+
+          onGenerateRoute: (settings) => RouteRegenerator.generateRoute(settings),
         )
     );
   }
