@@ -1,5 +1,6 @@
 
-import 'package:azura/feature/home/domain/entities/sport_entity.dart';
+
+import 'package:azura_lab/feature/home/domain/entities/sport_entity.dart';
 
 class SportModel extends Sport {
 
