@@ -8,6 +8,7 @@ import 'core/network/network_info.dart';
 import 'feature/home/data/data_source/remote_data_source.dart';
 import 'feature/home/data/repository/repository.dart';
 import 'feature/home/domain/repository/repository.dart';
+import 'feature/home/domain/use_cases/get_country_use_case.dart';
 import 'feature/home/domain/use_cases/get_sport_use_case.dart';
 import 'feature/home/presentation/view_model/sport_view_model.dart';
 
@@ -15,19 +16,18 @@ import 'feature/home/presentation/view_model/sport_view_model.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  //! Features - Number Trivia
-  // Bloc
+
   sl.registerFactory(
     () => SportState(
       sportUseCase: sl(),
-
+      countryUseCase: sl()
 
     ),
   );
 
   // Use cases
   sl.registerLazySingleton(() => GetSportUseCase(sl()));
-
+  sl.registerLazySingleton(() => GetCountryUseCase(sl()));
 
   // Repository
   sl.registerLazySingleton<SportRepository>(
