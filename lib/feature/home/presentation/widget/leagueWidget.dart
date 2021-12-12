@@ -26,32 +26,34 @@ class LeagueWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
 
         ),
-        height: 300,
+        height: 300.h,
         // width: 300,
         child: Material(
           elevation: 1,
           borderRadius: BorderRadius.circular(10),
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding:  EdgeInsets.all(15.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CachedNetworkImage(imageUrl: leagues.strBadge, fit: BoxFit.fitWidth, width: 50,),
+                    CachedNetworkImage(imageUrl: leagues.strBadge, fit: BoxFit.fitWidth, width: 50.w,),
                     Icon(Icons.more_vert)
                   ],
                 ),
                 SizedBox(height: 20.h,),
                 Container(
-                    width: 150,
-                    child:   Text(leagues.strLeagueAlternate, style: kBold.copyWith(fontSize: 18.sp, color: brown),)
+                    width: 150.w,
+                    child:   Text(leagues.strLeagueAlternate, style: kBold.copyWith(fontSize: 15.sp, color: brown),)
                 ),
                 Spacer(),
                 Column(
                   children: [
-                    Text(leagues.strLeague, style: kBold500.copyWith(fontSize: 15.sp, color: barrierColor),)
+                    Text(leagues.strLeague,
+                        overflow: TextOverflow.ellipsis,
+                      style: kBold500.copyWith(fontSize: 12.sp, color: brown),)
 
                   ],
                 )

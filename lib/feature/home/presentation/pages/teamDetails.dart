@@ -21,6 +21,7 @@ class _TeamDetailsState extends State<TeamDetails> {
     return Scaffold(
       backgroundColor: brown,
       body: SafeArea(
+        bottom: false,
         child: Container(
           child: Column(
             children: [
@@ -41,18 +42,17 @@ class _TeamDetailsState extends State<TeamDetails> {
                     child:
                     Column(
                       children: [
-                       CachedNetworkImage(imageUrl: widget.teams.strTeamBadge, width: 200.w,),
-                        SizedBox(height: 20,),
-                        // Text(widget.leagues.strLeague, style: kBold700.copyWith(color: Colors.white),),
-                        // SizedBox(height: 20,),
-                        // Text(widget.leagues.strLeagueAlternate, style: kBold700.copyWith(color: Colors.white),)
-
+                       CachedNetworkImage(imageUrl: widget.teams.strTeamBadge, width: 150.w,),
+                        SizedBox(height: 20.h,),
+                        Text(widget.teams.strTeam, style: kBold700.copyWith(color: Colors.white),),
+                        SizedBox(height: 20.h,),
+                        Text(widget.teams.strLeague, style: kBold700.copyWith(color: Colors.white),)
                       ],
                     )
                 ),
               ),
               Expanded(
-                // height: 400,
+            flex: 2,
                 child: Material(
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
                   child: Container(
@@ -64,9 +64,13 @@ class _TeamDetailsState extends State<TeamDetails> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                          Text("${widget.teams.strTeam} (${widget.teams.strTeamShort})", style: kBold700.copyWith(fontSize: 13.sp),),
+                          Text("${widget.teams.strTeam} (${widget.teams.strTeamShort})",
+
+                            style: kBold700.copyWith(fontSize: 13.sp),),
                         SizedBox(height: 10.h,),
-                            Text(widget.teams.strDescriptionEN, style: kBold500.copyWith(fontSize: 13.sp),)
+                            Text(widget.teams.strDescriptionEN,
+                              textAlign: TextAlign.justify,
+                              style: kBold500.copyWith(fontSize: 13.sp),)
 
                           ],
 

@@ -58,7 +58,7 @@ class _LeaguePageState extends State<LeaguePage> {
                                     child: FadeInAnimation(
                                       child:  LeagueWidget(
                                           onTap: (){
-                                            fetchteams("", index);
+                                            fetchteams(sportState.leagues[index].strLeague, index);
                                           },
                                           leagues:sportState.leagues[index]
                                       ),
@@ -97,16 +97,11 @@ class _LeaguePageState extends State<LeaguePage> {
 
   void fetchteams(id, index) async {
     var res = await sportState.getTeams(id: id);
-    print(res);
+
     res.fold((l) => null, (r) {
       pushNamedRoute(context, teamsPage, args: sportState.leagues[index]);
     });
-    // if (res["error"] == false && res["teams"] !=  null) {
-    //   setState(() {
-    //     // leagues = res["leagues"];
-    //   });
-    //   pushTo(context, TeamPage(teams: res["teams"], leagues: widget.leagues[index], ));
-    // }
+
 
   }
 }

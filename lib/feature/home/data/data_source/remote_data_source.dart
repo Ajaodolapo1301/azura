@@ -25,7 +25,7 @@ class SportApi implements AbstractSport{
 
 
 
-    print(url);
+
     try {
       var response = await http.get(url,).timeout(Duration(seconds: 30));
       int statusCode = response.statusCode;
@@ -63,7 +63,7 @@ class SportApi implements AbstractSport{
 
 
 
-    print(url);
+
     try {
       var response = await http.get(url,).timeout(Duration(seconds: 30));
       int statusCode = response.statusCode;
@@ -89,7 +89,7 @@ class SportApi implements AbstractSport{
 
 
     }
-    // print(result);
+
     return result;
   }
 
@@ -98,14 +98,10 @@ class SportApi implements AbstractSport{
     Map<String, dynamic> result = {};
     final String uri = "$baseUrl/search_all_leagues.php?c=$country&s=$sport";
     final url = Uri.parse(uri);
-
-
-
-    print(url);
     try {
       var response = await http.get(url,).timeout(Duration(seconds: 30));
       int statusCode = response.statusCode;
-      print(response.body);
+
       if (statusCode == 200) {
 
         result["error"] = false;
@@ -127,23 +123,19 @@ class SportApi implements AbstractSport{
 
 
     }
-    print(result);
+
     return result;
   }
 
   @override
   Future<Map<String, dynamic>> getallteams({id})async {
     Map<String, dynamic> result = {};
-    final String uri = "$baseUrl/search_all_teams.php?l=English%20Premier%20League";
+    final String uri = "$baseUrl/search_all_teams.php?l=$id";
     final url = Uri.parse(uri);
-
-
-
-    print(url);
     try {
       var response = await http.get(url,).timeout(Duration(seconds: 30));
       int statusCode = response.statusCode;
-      print(response.body);
+
       if (statusCode == 200) {
 
         result["error"] = false;

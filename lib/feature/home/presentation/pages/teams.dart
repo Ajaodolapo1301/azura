@@ -12,7 +12,7 @@ import 'package:azura_lab/feature/home/presentation/view_model/sport_view_model.
 import 'package:azura_lab/feature/home/presentation/widget/team_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 
@@ -57,16 +57,16 @@ class _TeamPageState extends State<TeamPage> {
                 ),
               ),
 
-             SizedBox(height: 20,),
+             SizedBox(height: 20.h,),
              Container(
-               height: 200,
+               height: 200.h,
                  child:
              Column(
                children: [
-                 CachedNetworkImage(imageUrl: widget.leagues.strBadge, width: 100,),
-                 SizedBox(height: 20,),
+                 CachedNetworkImage(imageUrl: widget.leagues.strBadge, width: 100.w,),
+                 SizedBox(height: 20.h,),
                  Text(widget.leagues.strLeague, style: kBold700.copyWith(color: Colors.white),),
-                 SizedBox(height: 20,),
+                 SizedBox(height: 20.h,),
                  Text(widget.leagues.strLeagueAlternate, style: kBold700.copyWith(color: Colors.white),)
                ],
              )
@@ -102,9 +102,9 @@ class _TeamPageState extends State<TeamPage> {
                     });
                   }
                 },
-                suffix: Icon(Icons.search, color: brown,size: 20,),
+                suffix: Icon(Icons.search, color: brown,size: 20.sp,),
               ),
-                SizedBox(height: 10,),
+                SizedBox(height: 10.h,),
                 Expanded(
                   child: ListView.separated(
 
@@ -114,7 +114,7 @@ class _TeamPageState extends State<TeamPage> {
                           // pushTo(context, TeamDetails(teams: filteredList[index],));
                         },);
                       }, separatorBuilder: (context,index){
-                    return Divider(height: 25,);
+                    return Divider(height: 25.h,);
                   }, itemCount: filteredList.length),
                 ),
               ],
@@ -134,16 +134,7 @@ class _TeamPageState extends State<TeamPage> {
     );
   }
 
-  // void fetchteams(id) async {
-  //   var res = await SportApi().getallteams(id: id);
-  //   if (res["error"] == false && res["leagues"] !=  null) {
-  //     setState(() {
-  //       // leagues = res["leagues"];
-  //     });
-  //     // pushTo(context, LeaguePage(leagues: leagues,));
-  //   }
-  //
-  // }
+
 }
 
 
