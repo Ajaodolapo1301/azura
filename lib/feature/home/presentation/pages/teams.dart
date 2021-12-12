@@ -1,6 +1,7 @@
 
 
 import 'package:azura_lab/core/navigation/navigator.dart';
+import 'package:azura_lab/core/navigation/route_generator.dart';
 import 'package:azura_lab/core/styles/color_utils.dart';
 import 'package:azura_lab/core/styles/fontSize.dart';
 import 'package:azura_lab/core/widget/custom_text_field.dart';
@@ -9,6 +10,7 @@ import 'package:azura_lab/feature/home/domain/entities/Teams.dart';
 import 'package:azura_lab/feature/home/domain/entities/leagues.dart';
 import 'package:azura_lab/feature/home/presentation/view_model/sport_view_model.dart';
 import 'package:azura_lab/feature/home/presentation/widget/team_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -61,7 +63,7 @@ class _TeamPageState extends State<TeamPage> {
                  child:
              Column(
                children: [
-                 Image.network(widget.leagues.strBadge, width: 100,),
+                 CachedNetworkImage(imageUrl: widget.leagues.strBadge, width: 100,),
                  SizedBox(height: 20,),
                  Text(widget.leagues.strLeague, style: kBold700.copyWith(color: Colors.white),),
                  SizedBox(height: 20,),
@@ -108,6 +110,7 @@ class _TeamPageState extends State<TeamPage> {
 
                       itemBuilder: (context,index){
                         return TeamWidget(teams: filteredList[index], onTap: (){
+                          pushNamedRoute(context, teamsDetails, args:filteredList[index] );
                           // pushTo(context, TeamDetails(teams: filteredList[index],));
                         },);
                       }, separatorBuilder: (context,index){

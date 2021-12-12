@@ -1,6 +1,8 @@
 
+import 'package:azura_lab/core/styles/color_utils.dart';
 import 'package:azura_lab/core/styles/fontSize.dart';
 import 'package:azura_lab/feature/home/domain/entities/leagues.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class LeagueWidget extends StatelessWidget {
@@ -30,21 +32,27 @@ class LeagueWidget extends StatelessWidget {
           elevation: 1,
           borderRadius: BorderRadius.circular(10),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image.network(leagues.strBadge, fit: BoxFit.fitWidth, width: 50,),
+                    CachedNetworkImage(imageUrl: leagues.strBadge, fit: BoxFit.fitWidth, width: 50,),
                     Icon(Icons.more_vert)
                   ],
+                ),
+                SizedBox(height: 20.h,),
+                Container(
+                    width: 150,
+                    child:   Text(leagues.strLeagueAlternate, style: kBold.copyWith(fontSize: 18.sp, color: brown),)
                 ),
                 Spacer(),
                 Column(
                   children: [
-                    Text(leagues.strLeagueAlternate, style: kBold500.copyWith(fontSize: 15.sp),)
+                    Text(leagues.strLeague, style: kBold500.copyWith(fontSize: 15.sp, color: barrierColor),)
+
                   ],
                 )
 

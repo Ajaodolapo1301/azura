@@ -21,9 +21,9 @@ class TeamsModel extends Team {
         strTeamJersey,
         strTeamLogo,
         strTeamBanner,
+        strDescriptionEN
 
-
-      });
+      }) : super(idAPIfootball: idAPIfootball, idSoccerXML: idSoccerXML, idTeam: idTeam, intFormedYear: intFormedYear, intLoved: intLoved, strDescriptionEN: strDescriptionEN, strLeague: strLeague, strSport: strSport, strAlternate: strAlternate, strCountry: strCountry, strTeam: strTeam, strTeamBadge: strTeamBadge, strTeamBanner: strTeamBanner, strTeamJersey: strTeamJersey, strTeamLogo: strTeamLogo, strTeamShort: strTeamShort);
 
   TeamsModel.fromJson(Map<String, dynamic> json) {
     idTeam = json['idTeam'];
@@ -42,7 +42,7 @@ class TeamsModel extends Team {
     strTeamBadge = json['strTeamBadge'];
     strTeamJersey = json['strTeamJersey'];
     strTeamLogo = json['strTeamLogo'];
-
+    strDescriptionEN = json["strDescriptionEN"];
     strTeamBanner = json['strTeamBanner'];
 
   }
@@ -66,7 +66,7 @@ class TeamsModel extends Team {
     data['strTeamBadge'] = this.strTeamBadge;
     data['strTeamJersey'] = this.strTeamJersey;
     data['strTeamLogo'] = this.strTeamLogo;
-
+    data["strDescriptionEN"] = this.strDescriptionEN;
     data['strTeamBanner'] = this.strTeamBanner;
 
     return data;

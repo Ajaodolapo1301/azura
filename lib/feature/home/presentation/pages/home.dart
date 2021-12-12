@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:azura_lab/core/function/snaks.dart';
 import 'package:azura_lab/core/navigation/navigator.dart';
 import 'package:azura_lab/core/navigation/route_generator.dart';
 import 'package:azura_lab/core/styles/color_utils.dart';
@@ -12,6 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+
+
+
+
+
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
 
@@ -35,6 +41,7 @@ class _HomeState extends State<Home>
 
   List<Country> filteredList = [];
   bool error = false;
+  String errorText;
   @override
   Widget build(BuildContext context) {
 
@@ -53,7 +60,7 @@ class _HomeState extends State<Home>
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -67,91 +74,120 @@ class _HomeState extends State<Home>
                   ),
                 ),
                 SizedBox(height: 25.h),
-      sportState.busy ? Text("Loading ..") :          Container(
-                  // padding: EdgeInsets.symmetric(horizontal: 15),
-                  height: 35.h,
-
-                  child: ListView.separated(
-                      separatorBuilder: (context, index) {
-                        return SizedBox(width: 0);
-                      },
-                      itemCount: sportState.sport.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        Sport sport = sportState.sport[index];
-                        return InkWell(
-                          onTap: () {
-                            HapticFeedback.lightImpact();
-                            setState(() {
-                              selectedIndex = index;
-                              pageController.animateToPage(
-                                selectedIndex,
-                                duration: Duration(milliseconds: 200),
-                                curve: Curves.ease,
-                              );
-                            });
-                          },
-                          child: Container(
-                            padding: EdgeInsets.only(left: 15.w),
-                            child: AnimatedContainer(
-                              duration: Duration(milliseconds: 500),
-                              padding: EdgeInsets.only(right: 20, left: 20),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: selectedIndex == index
-                                      ? red
-                                      : Colors.transparent,
-                                  border: Border.all(
-                                      width: 1,
-                                      color: selectedIndex == index
-                                          ? Colors.transparent
-                                          : red.withOpacity(0.4))),
-                              child: Center(
-                                  child: Text(
-                                   sport.strSport,
-                                    style: TextStyle(
-                                        fontSize: 15.sp,
-                                        color: selectedIndex == index
-                                            ? Colors.white
-                                            : red,
-                                        fontWeight: FontWeight.w600),
-                                  )),
-                            ),
-                          ),
-                        );
-                      }),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
                 Expanded(
-                    child: PageView(
-                      physics: NeverScrollableScrollPhysics(),
-                      controller: pageController,
-                      children: sportState.sport.map((e) {
-                        if (e.strSport == "Soccer") {
-                          return Container(
-                            padding: EdgeInsets.only(left: 20),
-                            child: ListView.separated(
-                              itemCount: filteredList.length,
-                              separatorBuilder: (context, index){
-                                // Country country = filteredList[index];
-                                return Divider(height: 10,);
-                              },
-                              itemBuilder: (context, index){
-                                Country country = filteredList[index];
-                                return CountryWidget(country: country, onTap: (){
+                  child: Builder(builder: (context){
+                    if(sportState.busy){
+                      return SizedBox();
+                      // return CircularProgressIndicator();
+                    }else if (error) {
+                      return Container(
 
-                                  fetchLeagues(sport:e.strSport, country: country.nameEn );
-                                },);
-                              },
-                            ),
-                          );
-                        } else {
-                          return Text("hooray");
-                        }
-                      }).toList(),
-                    ))
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+
+                            Text( errorText ?? "An Error occured", style: kBold600.copyWith(fontSize: 15.sp),),
+
+                          ],
+                        ),
+                      );
+                    }else {
+                      return    Column(
+                        children: [
+                          Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 15),
+                            height: 35.h,
+
+                            child: ListView.separated(
+                                separatorBuilder: (context, index) {
+                                  return SizedBox(width: 0);
+                                },
+                                itemCount: sportState.sport.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  Sport sport = sportState.sport[index];
+                                  return InkWell(
+                                    onTap: () {
+                                      HapticFeedback.lightImpact();
+                                      setState(() {
+                                        selectedIndex = index;
+                                        pageController.animateToPage(
+                                          selectedIndex,
+                                          duration: Duration(milliseconds: 200),
+                                          curve: Curves.ease,
+                                        );
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(left: 15.w),
+                                      child: AnimatedContainer(
+                                        duration: Duration(milliseconds: 500),
+                                        padding: EdgeInsets.only(right: 20.w, left: 20.w),
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: selectedIndex == index
+                                                ? red
+                                                : Colors.transparent,
+                                            border: Border.all(
+                                                width: 1,
+                                                color: selectedIndex == index
+                                                    ? Colors.transparent
+                                                    : red.withOpacity(0.4))),
+                                        child: Center(
+                                            child: Text(
+                                              sport.strSport,
+                                              style: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: selectedIndex == index
+                                                      ? Colors.white
+                                                      : red,
+                                                  fontWeight: FontWeight.w600),
+                                            )),
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          Expanded(
+                              child: PageView(
+                                physics: NeverScrollableScrollPhysics(),
+                                controller: pageController,
+                                children: sportState.sport.map((e) {
+                                  if (e.strSport == "Soccer") {
+                                    return Container(
+                                      padding: EdgeInsets.only(left: 20),
+                                      child: ListView.separated(
+                                        itemCount: filteredList.length,
+                                        separatorBuilder: (context, index){
+
+                                          return Divider(height: 10,);
+                                        },
+                                        itemBuilder: (context, index){
+                                          Country country = filteredList[index];
+                                          return CountryWidget(country: country, onTap: (){
+                                            fetchLeagues(sport:e.strSport, country: country.nameEn );
+                                          },);
+                                        },
+                                      ),
+                                    );
+                                  } else {
+                                    return Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text("hooray")
+                                      ],
+                                    );
+                                  }
+                                }).toList(),
+                              ))
+                        ],
+                      );
+                    }
+                  }),
+                )
               ],
             ),
           ),
@@ -170,9 +206,12 @@ class _HomeState extends State<Home>
   void fetchSport() async {
     var result = await sportState.getSport();
         result.fold((l) {
+          print(l.props.first.toString());
           setState(() {
             error = true;
+            errorText = l.props.first.toString();
           });
+
         }, (r) {
 
         });
@@ -181,7 +220,9 @@ class _HomeState extends State<Home>
 
   void fetchLeagues({sport, country}) async {
     var res = await sportState.getLeaguesByCountry(sport: sport, country: country);
-    res.fold((l) => null, (r) {
+    res.fold((l){
+      kShowSnackBar(context, l.props.first.toString());
+    }, (r) {
 
       pushNamedRoute(context, leaguesPage, );
 
@@ -192,7 +233,14 @@ class _HomeState extends State<Home>
 
   void fetchCountry() async {
     var res = await sportState.getCountry();
-    // print(res);
+  res.fold((l){
+    setState(() {
+      error = true;
+      errorText = l.props.first.toString();
+    });
+  }, (r) {
+
+  });
   }
 
   }

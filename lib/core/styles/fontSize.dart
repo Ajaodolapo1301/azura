@@ -12,7 +12,10 @@ final kBold700 = TextStyle(
   fontWeight: FontWeight.w700,
 
 );
+final kBold = TextStyle(
+  fontWeight: FontWeight.bold,
 
+);
 
 final kBold500 = TextStyle(
   fontWeight: FontWeight.w500,
