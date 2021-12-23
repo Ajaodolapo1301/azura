@@ -41,6 +41,8 @@ dependencies:
   flutter_staggered_animations: ^1.0.0
   flutter_svg: ^0.22.0
   intl: ^0.17.0
+  google_maps_webservice: ^0.0.19
+  google_maps_flutter: ^2.0.7
   flutter_screenutil: ^5.0.0+2
   another_flushbar: ^1.10.24
   equatable: ^0.2.0
